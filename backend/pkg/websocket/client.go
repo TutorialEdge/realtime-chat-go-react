@@ -3,6 +3,7 @@ package websocket
 import (
 	"fmt"
 	"log"
+	"sync"
 
 	"github.com/gorilla/websocket"
 )
@@ -11,6 +12,7 @@ type Client struct {
 	ID   string
 	Conn *websocket.Conn
 	Pool *Pool
+	mu   sync.Mutex
 }
 
 type Message struct {
@@ -32,14 +34,8 @@ func (c *Client) Read() {
 		}
 
 		message := Message{Type: messageType, Body: string(p)}
-
 		c.Pool.Broadcast <- message
-
 		fmt.Printf("Message Received: %+v\n", message)
-		err = c.Conn.WriteJSON(message)
-		if err != nil {
-			fmt.Println(err)
-		}
 
 	}
 }
