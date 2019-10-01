@@ -4,7 +4,7 @@ import ChatHistory from './components/ChatHistory/ChatHistory';
 import ChatInput from './components/ChatInput/ChatInput';
 import './App.css';
 import { connect, sendMsg } from './api';
-
+import 'react' from 'react-redux';
 class App extends Component {
   constructor(props) {
     super(props);
